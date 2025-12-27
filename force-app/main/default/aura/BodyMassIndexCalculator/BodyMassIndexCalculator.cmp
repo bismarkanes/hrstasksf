@@ -1,0 +1,56 @@
+<aura:component>
+  <aura:attribute name="fullname" type="String" default="bismark"/>
+  <aura:attribute name="age" type="Integer" default="32"/>
+  <aura:attribute name="height" type="Integer" default="177"/>
+  <aura:attribute name="weight" type="Integer" default="65"/>
+  <aura:attribute name="bmi_score" type="Double" />
+  <aura:attribute name="weight_status" type="String" default="None"/>
+  <aura:attribute name="weight_status_picklist" type="String[]" />
+  <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+
+  <div class="slds-var-m-top_small">
+    <lightning:input
+      label="Fullname"
+      name="userfullname"
+      value="{!v.fullname}"
+    />
+    <lightning:input
+      type="number"
+      label="Age"
+      name="userage"
+      value="{!v.age}"
+    />
+    <lightning:input
+      type="number"
+      label="Height (cm)"
+      name="userheight"
+      value="{!v.height}"
+      step=".1"
+    />
+    <lightning:input
+      type="number"
+      label="Weight (kg)"
+      name="userweight"
+      value="{!v.weight}"
+      step=".1"
+    />
+    <div class="slds-var-m-top_small">
+      BMI Score :
+      <ui:outputText value="{!v.bmi_score}"/>
+    </div>
+
+    <div class="slds-var-m-top_small">
+      Weight Status :
+      <ui:outputText value="{!v.weight_status}"/>
+
+      <lightning:select disabled="true" label="" name="weightstatuslist" value="{!v.weight_status}">
+          <option text="None" value="None" />
+          <aura:iteration items="{!v.weight_status_picklist}" var="ws">
+              <option text="{!ws.label}" value="{!ws.value}"/>
+          </aura:iteration>
+      </lightning:select>
+    </div>
+
+    <lightning:button variant="brand" label="Calculate" title="Calculate" class="slds-var-m-top_small" onclick="{!c.calculateHandler}" />
+  </div>
+</aura:component>
